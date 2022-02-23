@@ -28,7 +28,7 @@ public class PostController {
     public List<Post> getAllPosts() {
         List<Post> postList = repository.findAll();
         for (Post p : postList) {
-            p.setVoteCount(voteRepository.countVotesById(p.getId()));
+            p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
         }
         return postList;
     }
@@ -36,7 +36,7 @@ public class PostController {
     @GetMapping("/api/posts/{id}")
     public Post getPost(@PathVariable Integer id) {
         Post returnPost = repository.getById(id);
-        returnPost.setVoteCount(voteRepository.countVotesById(returnPost.getId()));
+        returnPost.setVoteCount(voteRepository.countVotesByPostId(returnPost.getId()));
         return returnPost;
     }
 
@@ -65,7 +65,7 @@ public class PostController {
             voteRepository.save(vote);
 
             returnPost = repository.getById(vote.getPostId());
-            returnPost.setVoteCount(voteRepository.countVotesById(vote.getPostId()));
+            returnPost.setVoteCount(voteRepository.countVotesByPostId(vote.getPostId()));
 
             returnValue = "";
         } else {

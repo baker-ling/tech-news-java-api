@@ -25,7 +25,7 @@ public class UserController {
         for (User u: userList) {
             List<Post> postList = u.getPosts();
             for (Post p: postList) {
-                p.setVoteCount(voteRepository.countVotesById(p.getId()));
+                p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
             }
         }
         return userList;
@@ -36,7 +36,7 @@ public class UserController {
         User returnUser = repository.getById(id);
         List<Post> postList = returnUser.getPosts();
         for (Post p: postList) {
-            p.setVoteCount(voteRepository.countVotesById(p.getId()));
+            p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
         }
         return returnUser;
     }
